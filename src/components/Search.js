@@ -10,6 +10,7 @@ export default class Search extends Component {
       error: false,
       lat: "",
       lon: "",
+      map: "",
     };
   }
   fetchData = async () => {
@@ -17,8 +18,12 @@ export default class Search extends Component {
       let result = await axios.get(
         `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.query}&format=json`
       );
-      console.log(result);
-      this.setState({ locationObject: result.data[0] });
+
+      this.setState({
+        locationObject: result.data[0],
+        lat: result.data[0].lat,
+        lon: result.data[0].lon,
+      });
     } catch (error) {
       console.log(error);
       this.setState({ error: true });
@@ -37,6 +42,10 @@ export default class Search extends Component {
           <button type='submit'>Explore!</button>
         </Form>
         <Card style={{ width: "18rem" }}>
+          <Card.Img
+            variant='top'
+            src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.locationObject.lat},${this.state.locationObject.lon}&zoom=18`}
+          />
           <Card.Body>
             {this.state.locationObject.display_name ? (
               <p>
