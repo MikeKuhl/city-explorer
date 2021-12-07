@@ -1,13 +1,8 @@
 import axios from "axios";
 import React, { Component } from "react";
-import {
-  Alert,
-  Button,
-  Card,
-  Form,
-  ListGroup,
-  ListGroupItem,
-} from "react-bootstrap";
+import { Alert, Button, Card, Container, Form, Navbar } from "react-bootstrap";
+import Map from "./Map";
+import MapData from "./MapData";
 
 export default class Search extends Component {
   constructor(props) {
@@ -48,6 +43,11 @@ export default class Search extends Component {
   render() {
     return (
       <div>
+        <Navbar bg='dark' variant='dark'>
+          <Container>
+            <Navbar.Brand href='#home'></Navbar.Brand>
+          </Container>
+        </Navbar>
         <Form onSubmit={this.handleSubmit}>
           <input
             type='text'
@@ -60,10 +60,7 @@ export default class Search extends Component {
           </Button>
         </Form>
         <Card style={{ width: "70rem" }} className='card'>
-          <Card.Img
-            variant='top'
-            src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.locationObject.lat},${this.state.locationObject.lon}&zoom=16&size=1280x720`}
-          />
+          <Map locationObject={this.state.locationObject} />
           <Card.Body>
             {this.state.locationObject.display_name ? (
               <p>
@@ -71,16 +68,7 @@ export default class Search extends Component {
                   {this.state.locationObject.display_name}
                 </Card.Title>
 
-                <ListGroup className='list-group-flush'>
-                  <ListGroupItem className='ListGroup'>
-                    Latitude {this.state.locationObject.lat}
-                  </ListGroupItem>{" "}
-                  <ListGroupItem className='ListGroup'>
-                    {" "}
-                    Longitude
-                    {this.state.locationObject.lon}
-                  </ListGroupItem>
-                </ListGroup>
+                <MapData locationObject={this.state.locationObject} />
               </p>
             ) : (
               <p>Search for a city to explore</p>
