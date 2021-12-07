@@ -70,6 +70,7 @@ export default class Search extends Component {
                 <Card.Title>
                   {this.state.locationObject.display_name}
                 </Card.Title>
+
                 <ListGroup className='list-group-flush'>
                   <ListGroupItem className='ListGroup'>
                     Latitude {this.state.locationObject.lat}
