@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { Card, Form } from "react-bootstrap";
+import { Button, Card, Form } from "react-bootstrap";
+import "../styles/card.css";
 export default class Search extends Component {
   constructor(props) {
     super(props);
@@ -38,10 +39,17 @@ export default class Search extends Component {
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
-          <input type='text' placeholder='City name' name='city' />
-          <button type='submit'>Explore!</button>
+          <input
+            type='text'
+            placeholder='Enter City name'
+            name='city'
+            class='input'
+          />
+          <Button type='submit' className='button'>
+            Explore!
+          </Button>
         </Form>
-        <Card style={{ width: "18rem" }}>
+        <Card style={{ width: "18rem" }} className='card'>
           <Card.Img
             variant='top'
             src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.locationObject.lat},${this.state.locationObject.lon}&zoom=18`}
