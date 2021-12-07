@@ -1,7 +1,14 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { Button, Card, Form } from "react-bootstrap";
-import "../styles/card.css";
+import {
+  Alert,
+  Button,
+  Card,
+  Form,
+  ListGroup,
+  ListGroupItem,
+} from "react-bootstrap";
+
 export default class Search extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +19,7 @@ export default class Search extends Component {
       lat: "",
       lon: "",
       map: "",
+      errorMessage: [],
     };
   }
   fetchData = async () => {
@@ -24,10 +32,11 @@ export default class Search extends Component {
         locationObject: result.data[0],
         lat: result.data[0].lat,
         lon: result.data[0].lon,
+        error: false,
       });
     } catch (error) {
       console.log(error);
-      this.setState({ error: true });
+      this.setState({ error: true, errorMessage: error.message });
     }
   };
 
@@ -49,10 +58,10 @@ export default class Search extends Component {
             Explore!
           </Button>
         </Form>
-        <Card style={{ width: "18rem" }} className='card'>
+        <Card style={{ width: "70rem" }} className='card'>
           <Card.Img
             variant='top'
-            src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.locationObject.lat},${this.state.locationObject.lon}&zoom=18`}
+            src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.locationObject.lat},${this.state.locationObject.lon}&zoom=16&size=1280x720`}
           />
           <Card.Body>
             {this.state.locationObject.display_name ? (
@@ -60,12 +69,31 @@ export default class Search extends Component {
                 <Card.Title>
                   {this.state.locationObject.display_name}
                 </Card.Title>
-                ,{this.state.locationObject.lat},{this.state.locationObject.lon}{" "}
+                <ListGroup className='list-group-flush' className='ListGroup'>
+                  <ListGroupItem className='ListGroup'>
+                    Latitude {this.state.locationObject.lat}
+                  </ListGroupItem>{" "}
+                  <ListGroupItem className='ListGroup'>
+                    {" "}
+                    Longitude
+                    {this.state.locationObject.lon}
+                  </ListGroupItem>
+                </ListGroup>
               </p>
             ) : (
               <p>Search for a city to explore</p>
             )}
-            {this.state.error && <p>There was an error with your request</p>}
+            {this.state.error && (
+              <Alert
+                varient='danger'
+                className='error'
+                onClose={() => this.setState({ error: false })}
+                dismissible
+              >
+                There was an error with your request. Please try again.{" "}
+                {this.state.errorMessage}
+              </Alert>
+            )}
           </Card.Body>
         </Card>
       </div>
