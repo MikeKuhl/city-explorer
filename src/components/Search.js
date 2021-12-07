@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { Form } from "react-bootstrap";
+import { Card, Form } from "react-bootstrap";
 export default class Search extends Component {
   constructor(props) {
     super(props);
@@ -36,15 +36,21 @@ export default class Search extends Component {
           <input type='text' placeholder='City name' name='city' />
           <button type='submit'>Explore!</button>
         </Form>
-        {this.state.locationObject.display_name ? (
-          <p>
-            {this.state.locationObject.display_name},
-            {this.state.locationObject.lat},{this.state.locationObject.lon}{" "}
-          </p>
-        ) : (
-          <p>Search for a city to explore</p>
-        )}
-        {this.state.error && <p>There was an error with your request</p>}
+        <Card style={{ width: "18rem" }}>
+          <Card.Body>
+            {this.state.locationObject.display_name ? (
+              <p>
+                <Card.Title>
+                  {this.state.locationObject.display_name}
+                </Card.Title>
+                ,{this.state.locationObject.lat},{this.state.locationObject.lon}{" "}
+              </p>
+            ) : (
+              <p>Search for a city to explore</p>
+            )}
+            {this.state.error && <p>There was an error with your request</p>}
+          </Card.Body>
+        </Card>
       </div>
     );
   }
