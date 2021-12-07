@@ -1,7 +1,7 @@
 # city-explorer
 
 **Author**: Michael Milsap
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 0.0.1
 
 ## Overview
 
@@ -12,6 +12,9 @@ Build and display a location on a map using API calls and outside data.
 ## Getting Started
 
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+started with npx-create-react-app
+then installed bootstrap and axios
+
 
 ## Architecture
 
@@ -23,6 +26,18 @@ Build and display a location on a map using API calls and outside data.
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
+Name of feature: Asynchronous Code and API Calls
+
+Estimate of time needed to complete: **\_**
+
+Start time: **\_**
+
+Finish time: **\_**
+
+Actual time needed to complete: **\_**
+
 ## Credit and Collaborations
+
+Erik Savage
 
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
