@@ -1,0 +1,46 @@
+body {
+    display:flex;
+    justify-content: center;
+    background-color: #023047;
+}
+.input{
+    background-color: #f1faee;
+    position: relative;
+
+    color: black;
+    padding: 1px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: 2px solid black;
+}
+
+.card {
+margin-top: 2rem;
+margin-bottom: 5rem;
+
+background-color: #8ecae6;
+border: 2px solid #fb8500;
+
+}
+
+.button {
+    background-color: #8ecae6; /* Green */
+    border: none;
+    color: #023047;
+    padding: 0px 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: 1px solid #fb8500;
+    margin-left: .4rem;
+}
+
+.ListGroup {
+    background-color: white;
+    color:#023047;
+    border-color: #fb8500;
+
+}
