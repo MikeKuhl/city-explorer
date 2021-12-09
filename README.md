@@ -22,6 +22,7 @@ Using React and React-Bootstrap to render and present the data. I'm using the Ax
 
 ## Time
 
+12-07-2021
 Name of feature: Asynchronous Code and API Calls
 
 Estimate of time needed to complete: 2Hours
@@ -31,6 +32,17 @@ Start time: 2pm
 Finish time: 6pm
 
 Actual time needed to complete: 3 Hours.
+
+12-08-2021
+Name of feature: Asynchronous Code and API Calls
+
+Estimate of time needed to complete: 2Hours
+
+Start time: 5pm
+
+Finish time: 1130pm
+
+Actual time needed to complete: 8 Hours.
 
 ## Credit and Collaborations
 
