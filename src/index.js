@@ -7,6 +7,8 @@ import Search from "./components/Search";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import "./styles/card.css";
+
+const port = process.env.PORT || 3000;
 ReactDOM.render(
   <React.StrictMode>
     <App />

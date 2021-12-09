@@ -21,6 +21,7 @@ export default class Search extends Component {
     };
   }
 
+
   fetchData = async () => {
     try {
       let result = await axios.get(
@@ -124,3 +125,4 @@ export default class Search extends Component {
     );
   }
 }
+
