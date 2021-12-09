@@ -1,14 +1,10 @@
 import axios from "axios";
 import React, { Component } from "react";
-import {
-  Alert,
-  Button,
-  Card,
-  Form,
-  ListGroup,
-  ListGroupItem,
-} from "react-bootstrap";
-
+import { Alert, Button, Card, Container, Form, Navbar } from "react-bootstrap";
+import Map from "./Map";
+import MapData from "./MapData";
+import MovieData from "./MovieData";
+import Weather from "./Weather";
 export default class Search extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +16,8 @@ export default class Search extends Component {
       lon: "",
       map: "",
       errorMessage: [],
+      weather: [],
+      movie: [],
     };
   }
 
@@ -28,42 +26,73 @@ export default class Search extends Component {
       let result = await axios.get(
         `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.query}&format=json`
       );
-
-      this.setState({
-        locationObject: result.data[0],
-        lat: result.data[0].lat,
-        lon: result.data[0].lon,
-        error: false,
-      });
+      this.setState(
+        {
+          locationObject: result.data[0],
+          lat: result.data[0].lat,
+          lon: result.data[0].lon,
+          error: false,
+        },
+        this.fetchWeather
+      );
+      this.fetchMovie();
     } catch (error) {
       console.log(error);
       this.setState({ error: true, errorMessage: error.message });
     }
   };
 
+  fetchWeather = async () => {
+    let url = `${process.env.REACT_APP_SERVER_URL}/weather?lat=${this.state.locationObject.lat}&lon=${this.state.locationObject.lon}`;
+    try {
+      let weatherResult = await axios.get(url);
+
+      this.setState({
+        weather: weatherResult.data,
+        error: false,
+      });
+    } catch (error) {
+      console.log(error);
+      this.setState({ error: true, errorMessage: error.message, weather: [] });
+    }
+  };
+  fetchMovie = async () => {
+    let cityName = this.state.locationObject.display_name
+      .split(",")[0]
+      .toLowerCase();
+    let url = `${process.env.REACT_APP_SERVER_URL}/movies?&query=${cityName}`;
+
+    let movie = await axios.get(url);
+    this.setState({ movie: movie.data });
+    console.log("hello");
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({ query: event.target.city.value }, this.fetchData);
   };
+
   render() {
     return (
       <div>
+        <Navbar bg='dark' variant='dark'>
+          <Container>
+            <Navbar.Brand href='#home'></Navbar.Brand>
+          </Container>
+        </Navbar>
         <Form onSubmit={this.handleSubmit}>
           <input
             type='text'
             placeholder='Enter City name'
             name='city'
-            class='input'
+            className='input'
           />
           <Button type='submit' className='button'>
             Explore!
           </Button>
         </Form>
         <Card style={{ width: "70rem" }} className='card'>
-          <Card.Img
-            variant='top'
-            src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.locationObject.lat},${this.state.locationObject.lon}&zoom=16&size=1280x720`}
-          />
+          <Map locationObject={this.state.locationObject} />
           <Card.Body>
             {this.state.locationObject.display_name ? (
               <p>
@@ -71,16 +100,9 @@ export default class Search extends Component {
                   {this.state.locationObject.display_name}
                 </Card.Title>
 
-                <ListGroup className='list-group-flush'>
-                  <ListGroupItem className='ListGroup'>
-                    Latitude {this.state.locationObject.lat}
-                  </ListGroupItem>{" "}
-                  <ListGroupItem className='ListGroup'>
-                    {" "}
-                    Longitude
-                    {this.state.locationObject.lon}
-                  </ListGroupItem>
-                </ListGroup>
+                <MapData locationObject={this.state.locationObject} />
+                <Weather weather={this.state.weather} />
+                <MovieData movie={this.state.movie} />
               </p>
             ) : (
               <p>Search for a city to explore</p>
