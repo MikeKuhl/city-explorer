@@ -1,20 +1,15 @@
 import React, { Component } from "react";
-import { Card, Container, Row, Stack } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
+import WeatherDay from "./WeatherDay";
+
 export default class Weather extends Component {
   render() {
     return (
       <Container fluid>
+        {/* <WeatherDay weather={this.props.weather} i={1} /> */}
         <Row xs='auto' className='g-4'>
           {this.props.weather.map((day, i) => (
-            <Stack>
-              <Card className='weatherData'>
-                <Card.Body>
-                  Date: {this.props.weather[i].date}
-                  <br />
-                  Weather Report: {this.props.weather[i].description}
-                </Card.Body>
-              </Card>
-            </Stack>
+            <WeatherDay weather={this.props.weather} i={i} />
           ))}
         </Row>
       </Container>

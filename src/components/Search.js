@@ -1,10 +1,8 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { Alert, Button, Card, Container, Form, Navbar } from "react-bootstrap";
+import { Button, Card, Container, Form, Navbar } from "react-bootstrap";
+import CardWidget from "./CardWidget";
 import Map from "./Map";
-import MapData from "./MapData";
-import MovieData from "./MovieData";
-import Weather from "./Weather";
 export default class Search extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +16,9 @@ export default class Search extends Component {
       errorMessage: [],
       weather: [],
       movie: [],
+      date: "",
+      poster: "",
+      title: "",
     };
   }
 
@@ -91,34 +92,14 @@ export default class Search extends Component {
             Explore!
           </Button>
         </Form>
+
         <Card style={{ width: "70rem" }} className='card'>
           <Map locationObject={this.state.locationObject} />
-          <Card.Body>
-            {this.state.locationObject.display_name ? (
-              <p>
-                <Card.Title>
-                  {this.state.locationObject.display_name}
-                </Card.Title>
-
-                <MapData locationObject={this.state.locationObject} />
-                <Weather weather={this.state.weather} />
-                <MovieData movie={this.state.movie} />
-              </p>
-            ) : (
-              <p>Search for a city to explore</p>
-            )}
-            {this.state.error && (
-              <Alert
-                varient='danger'
-                className='error'
-                onClose={() => this.setState({ error: false })}
-                dismissible
-              >
-                There was an error with your request. Please try again.{" "}
-                {this.state.errorMessage}
-              </Alert>
-            )}
-          </Card.Body>
+          <CardWidget
+            locationObject={this.state.locationObject}
+            movie={this.state.movie}
+            weather={this.state.weather}
+          />
         </Card>
       </div>
     );
