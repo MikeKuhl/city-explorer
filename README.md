@@ -20,6 +20,8 @@ Using React and React-Bootstrap to render and present the data. I'm using the Ax
 
 12-06-2021 5:59pm - Successfully used the API to render Lat,Lon,Name of the inputed city. Also rendered a static of the location entered and styled.
 
+12-10-2021 12:30am - Application talks to the backend and frontend locally and on netlify. Was able to make the code a bit mor emodular. Currently having issues with rendering a single set of Movie Data and Weather Data.
+
 ## Time
 
 12-07-2021
@@ -49,3 +51,7 @@ Actual time needed to complete: 8 Hours.
 Andrew Strauch
 Erik Savage
 [Andrew Enyeart](github.com/aenyeart)
+
+<img src="Lab06.png"/>
+<img src="Lab07.PNG"/>
+<img src="Lab08.jpg"/>
