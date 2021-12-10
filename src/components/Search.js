@@ -43,7 +43,7 @@ export default class Search extends Component {
   };
 
   fetchWeather = async () => {
-    let url = `${process.env.REACT_APP_SERVER_URL}weather?lat=${this.state.locationObject.lat}&lon=${this.state.locationObject.lon}`;
+    let url = `${process.env.REACT_APP_SERVER_URL}/weather?lat=${this.state.locationObject.lat}&lon=${this.state.locationObject.lon}`;
     try {
       let weatherResult = await axios.get(url);
 
@@ -60,7 +60,7 @@ export default class Search extends Component {
     let cityName = this.state.locationObject.display_name
       .split(",")[0]
       .toLowerCase();
-    let url = `${process.env.REACT_APP_SERVER_URL}movies?&query=${cityName}`;
+    let url = `${process.env.REACT_APP_SERVER_URL}/movies?&query=${cityName}`;
 
     let movie = await axios.get(url);
     this.setState({ movie: movie.data });
